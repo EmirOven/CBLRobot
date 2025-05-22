@@ -140,7 +140,7 @@ namespace UnityEngine.UI
             else
                 displayIndex = currentEventCamera.targetDisplay;
 
-            var eventPosition = Display.RelativeMouseAt(eventData.position);
+            var eventPosition = MultipleDisplayUtilities.RelativeMouseAtScaled(eventData.position);
             if (eventPosition != Vector3.zero)
             {
                 // We support multiple display and display identification based on event position.
@@ -156,6 +156,12 @@ namespace UnityEngine.UI
                 // The multiple display system is not supported on all platforms, when it is not supported the returned position
                 // will be all zeros so when the returned index is 0 we will default to the event data to be safe.
                 eventPosition = eventData.position;
+
+#if UNITY_EDITOR
+                if (Display.activeEditorGameViewTarget != displayIndex)
+                    return;
+                eventPosition.z = Display.activeEditorGameViewTarget;
+#endif
 
                 // We dont really know in which display the event occured. We will process the event assuming it occured in our display.
             }
@@ -206,9 +212,11 @@ namespace UnityEngine.UI
                 {
                     if (ReflectionMethodsCache.Singleton.raycast3D != null)
                     {
-                        var hits = ReflectionMethodsCache.Singleton.raycast3DAll(ray, distanceToClipPlane, (int)m_BlockingMask);
-                        if (hits.Length > 0)
-                            hitDistance = hits[0].distance;
+                        RaycastHit hit;
+                        if (ReflectionMethodsCache.Singleton.raycast3D(ray, out hit, distanceToClipPlane, (int)m_BlockingMask))
+                        {
+                            hitDistance = hit.distance;
+                        }
                     }
                 }
 #endif

@@ -804,7 +804,7 @@ namespace Unity.Robotics.ROSTCPConnector
                 catch (Exception e)
                 {
                     ROSConnection.m_HasConnectionError = true;
-                    Debug.Log($"Connection to {rosIPAddress}:{rosPort} failed - " + e);
+//                    Debug.Log($"Connection to {rosIPAddress}:{rosPort} failed - " + e);
                     await Task.Delay(nextReconnectionDelay);
                 }
                 finally
