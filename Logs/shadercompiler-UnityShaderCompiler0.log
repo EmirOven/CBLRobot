@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Base path: '/home/tue20210079/Unity/Hub/Editor/2021.3.38f1/Editor/Data', plugins path '/home/tue20210079/Unity/Hub/Editor/2021.3.38f1/Editor/Data/PlaybackEngines'
+=======
+Base path: '/home/emiroven/Unity/Hub/Editor/2021.3.38f1/Editor/Data', plugins path '/home/emiroven/Unity/Hub/Editor/2021.3.38f1/Editor/Data/PlaybackEngines'
+>>>>>>> 0676246f (Remade the entire project, lols)
 Cmd: initializeCompiler
 
 Cmd: preprocess

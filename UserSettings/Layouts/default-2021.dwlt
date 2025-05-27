@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 72
     y: 64
     width: 1642
     height: 785
+=======
+    x: 0
+    y: 79
+    width: 2560
+    height: 1483
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_ShowMode: 4
   m_Title: Project
   m_RootView: {fileID: 6}
@@ -43,12 +50,17 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
+<<<<<<< HEAD
     width: 1642
     height: 735
+=======
+    width: 2560
+    height: 1433
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 21
+  controlID: 30
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -64,10 +76,17 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 1273
     y: 0
     width: 369
     height: 735
+=======
+    x: 1953
+    y: 0
+    width: 607
+    height: 1433
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_MinSize: {x: 276, y: 71}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
@@ -92,8 +111,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 316
     height: 372
+=======
+    width: 485
+    height: 725
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
@@ -117,9 +141,15 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
+<<<<<<< HEAD
     y: 372
     width: 1273
     height: 363
+=======
+    y: 725
+    width: 1953
+    height: 708
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 12}
@@ -148,8 +178,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 1642
     height: 785
+=======
+    width: 2560
+    height: 1483
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
@@ -173,7 +208,11 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 1642
+=======
+    width: 2560
+>>>>>>> 0676246f (Remade the entire project, lols)
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -194,8 +233,13 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
+<<<<<<< HEAD
     y: 765
     width: 1642
+=======
+    y: 1463
+    width: 2560
+>>>>>>> 0676246f (Remade the entire project, lols)
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -218,12 +262,17 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 1273
     height: 735
+=======
+    width: 1953
+    height: 1433
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 22
+  controlID: 31
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -243,12 +292,21 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 1273
     height: 372
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
   controlID: 23
+=======
+    width: 1953
+    height: 725
+  m_MinSize: {x: 200, y: 100}
+  m_MaxSize: {x: 16192, y: 8096}
+  vertical: 0
+  controlID: 22
+>>>>>>> 0676246f (Remade the entire project, lols)
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -264,10 +322,17 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 316
     y: 0
     width: 957
     height: 372
+=======
+    x: 485
+    y: 0
+    width: 1468
+    height: 725
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
@@ -296,10 +361,17 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 72
     y: 491
     width: 1272
     height: 342
+=======
+    x: 0
+    y: 872
+    width: 1952
+    height: 687
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -325,14 +397,24 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Scenes
   m_LastFoldersGridSize: 16
+<<<<<<< HEAD
   m_LastProjectPath: /home/ubuntuhost/CBLRobot
+=======
+  m_LastProjectPath: /home/emiroven/CBLRobot
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
     m_SelectedIDs: c8c20000
     m_LastClickedID: 49864
     m_ExpandedIDs: 0000000060c2000062c2000064c2000066c2000068c200006ac200006cc20000c4c2000000ca9a3bffffff7f
+=======
+    m_SelectedIDs: 6cc20000
+    m_LastClickedID: 49772
+    m_ExpandedIDs: 0000000060c2000062c2000064c2000066c2000068c200006ac200006cc2000000ca9a3bffffff7f
+>>>>>>> 0676246f (Remade the entire project, lols)
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: Scenes
@@ -391,18 +473,22 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: test
-      m_OriginalName: test
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
+<<<<<<< HEAD
       m_UserData: 49718
+=======
+      m_UserData: 0
+>>>>>>> 0676246f (Remade the entire project, lols)
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 5}
     m_CreateAssetUtility:
@@ -436,10 +522,17 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 1345
     y: 119
     width: 368
     height: 714
+=======
+    x: 1953
+    y: 147
+    width: 606
+    height: 1412
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -478,10 +571,17 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 72
     y: 119
     width: 315
     height: 351
+=======
+    x: 0
+    y: 147
+    width: 484
+    height: 704
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -492,7 +592,11 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
+<<<<<<< HEAD
       m_ExpandedIDs: dcb7ffffc0bcffffc6bcffffd2bcffffd8bcffffdebcffffe6bcffff36bdffff3cbdffff42bdffff4abdffff7ebdffffcebdffffe8bdffffecbdffffeec1fffff6cafffff2be000000bf00000cbf000028bf00002ebf000034bf000042bf000054bf00005abf000066bf00007ebf000090bf0000c6bf0000d6bf0000
+=======
+      m_ExpandedIDs: f6caffff
+>>>>>>> 0676246f (Remade the entire project, lols)
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -536,10 +640,17 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 388
     y: 119
     width: 955
     height: 351
+=======
+    x: 485
+    y: 147
+    width: 1466
+    height: 704
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -793,7 +904,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.11602688, y: -0.2997743, z: 0.036748335, w: 0.9462348}
     speed: 2
+<<<<<<< HEAD
     m_Value: {x: 0.16809215, y: -0.30148783, z: 0.054077774, w: 0.93697697}
+=======
+    m_Value: {x: -0.14482968, y: 0.58141255, z: -0.10609504, w: -0.7935763}
+>>>>>>> 0676246f (Remade the entire project, lols)
   m_Size:
     m_Target: 0.69196165
     speed: 2
