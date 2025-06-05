@@ -50,8 +50,20 @@ public class OdometryReceiverROS2 : MonoBehaviour
     /// Callback invoked whenever an Odometry message arrives.
     /// We extract x, y, and yaw, then immediately set transform.position & rotation.
     /// </summary>
+[Header("Optional Pose Offset")]
+[Tooltip("If the ROS odom origin (0,0) should map to a different Unity world position, set this offset.")]
+public Vector3 unityOriginOffset = Vector3.zero;  
+// e.g. if ROS (0,0) = Unity (1,0,−2), set unityOriginOffset = (1, 0, -2).
+
     private void OnOdometryReceived(OdometryMsg msg)
     {
+        double rosX = msg.pose.pose.position.x;
+        double rosY = msg.pose.pose.position.y;
+
+        Vector3 unityPos = new Vector3((float)rosX, 0f, (float)rosY);
+        unityPos += unityOriginOffset; // apply offset
+
+        transform.position = unityPos;
         // 1) Read ROS position (meters)
         double rosX = msg.pose.pose.position.x;   // forward
         double rosY = msg.pose.pose.position.y;   // left
