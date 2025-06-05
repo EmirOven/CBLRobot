@@ -18,7 +18,7 @@ public class OdometryReceiverROS2 : MonoBehaviour
     [Header("ROS 2 Settings")]
 
     [Tooltip("ROS 2 topic name for odometry. Must match the TurtleBot3's published /odom.")]
-    public string odomTopic = "/odom";
+    public string odomTopic = "/base_scan";
 
     [Tooltip("Quality of Service to use for odometry. SENSOR_DATA is a good best-effort for high-rate streams.")]
     // public QoSSettings qos = QoSSettings.SENSOR_DATA;
@@ -41,9 +41,9 @@ public class OdometryReceiverROS2 : MonoBehaviour
         // 2. Subscribe to /odom with the chosen QoS
         ros2Connector.Subscribe<OdometryMsg>(
             odomTopic,
-            OnOdometryReceived,
+            OnOdometryReceived);
             // qos
-        );
+        //);
     }
 
     /// <summary>
@@ -65,13 +65,13 @@ public Vector3 unityOriginOffset = Vector3.zero;
 
         transform.position = unityPos;
         // 1) Read ROS position (meters)
-        double rosX = msg.pose.pose.position.x;   // forward
-        double rosY = msg.pose.pose.position.y;   // left
+        //rosX = msg.pose.pose.position.x;   // forward
+        //rosY = msg.pose.pose.position.y;   // left
         // double rosZ = msg.pose.pose.position.z; // usually 0 for a ground robot
 
         // 2) Convert to Unity world: (rosX, rosY) → (unityX, unityZ)
-        Vector3 unityPos = new Vector3((float)rosX, 0f, (float)rosY);
-        transform.position = unityPos;
+        //Vector3 unityPos = new Vector3((float)rosX, 0f, (float)rosY);
+        //transform.position = unityPos;
 
         // 3) Read ROS quaternion and extract yaw
         var q = msg.pose.pose.orientation;
