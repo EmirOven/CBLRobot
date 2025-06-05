@@ -21,7 +21,7 @@ public class OdometryReceiverROS2 : MonoBehaviour
     public string odomTopic = "/odom";
 
     [Tooltip("Quality of Service to use for odometry. SENSOR_DATA is a good best-effort for high-rate streams.")]
-    public QoSSettings qos = QoSSettings.SENSOR_DATA;
+    // public QoSSettings qos = QoSSettings.SENSOR_DATA;
 
     // Internal handle to ROSConnection
     private ROSConnection ros2Connector;
@@ -42,7 +42,7 @@ public class OdometryReceiverROS2 : MonoBehaviour
         ros2Connector.Subscribe<OdometryMsg>(
             odomTopic,
             OnOdometryReceived,
-            qos
+            // qos
         );
     }
 
