@@ -3,19 +3,24 @@ using Unity.Robotics.ROSTCPConnector;
 using Unity.Robotics.ROSTCPConnector.MessageGeneration;
 using RosMessageTypes.Geometry;
 using RosMessageTypes.BuiltinInterfaces;
+using System.Collections;
+using RosMessageTypes.Std;
 
-public class MoveBaseGoalPublisher : MonoBehaviour
+public class MoveBaseGoalPublisherE : MonoBehaviour
 {
     ROSConnection ros;
-    public string topicName = "/move_base_simple/goal";
+    public string topicName = "/goal_pose";
 
     public Transform mapFrame;
     public Transform goalFrame;
 
     void Start()
-    {
-        ros = ROSConnection.GetOrCreateInstance();
-        ros.RegisterPublisher<PoseStampedMsg>(topicName);
+    {	
+    	Debug.Log("Starting ROS publisher setup...");
+    	ros = ROSConnection.GetOrCreateInstance();
+    	ros.RegisterPublisher<PoseStampedMsg>(topicName);
+
+    	Invoke(nameof(PublishNavigationGoal), 3.0f); // Delay 3s to wait for ROS
     }
 
     public void PublishNavigationGoal()
@@ -25,10 +30,12 @@ public class MoveBaseGoalPublisher : MonoBehaviour
             Debug.LogWarning("Map and goal frames not set");
             return;
         }
+        Debug.Log("Publishing goal to ROS...");
+        Debug.Log($"Publishing goal to {topicName} at: {goalFrame.position}");
 
         PoseStampedMsg goalMsg = new PoseStampedMsg();
 
-        goalMsg.header.frame_id = mapFrame.name;
+        goalMsg.header.frame_id = "map";
         goalMsg.header.stamp = new TimeMsg
         {
             sec = (int)System.DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
