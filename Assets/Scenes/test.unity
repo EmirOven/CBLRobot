@@ -2198,9 +2198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d94c1bdaaba925d0b335dec17108d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topicName: /goal_pose
-  mapFrame: {fileID: 629714953}
+  goalTopic: /goal_pose
+  initPoseTopic: /initialpose
   goalFrame: {fileID: 1367465406}
+  initialPoseFrame: {fileID: 629714953}
 --- !u!1001 &959864349
 PrefabInstance:
   m_ObjectHideFlags: 0

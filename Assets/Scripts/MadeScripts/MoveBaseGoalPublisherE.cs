@@ -1,53 +1,110 @@
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
-using Unity.Robotics.ROSTCPConnector.MessageGeneration;
 using RosMessageTypes.Geometry;
 using RosMessageTypes.BuiltinInterfaces;
-using System.Collections;
 using RosMessageTypes.Std;
 
 public class MoveBaseGoalPublisherE : MonoBehaviour
 {
     ROSConnection ros;
-    public string topicName = "/goal_pose";
+    public string goalTopic = "/goal_pose";
+    public string initPoseTopic = "/initialpose";
 
-    public Transform mapFrame;
     public Transform goalFrame;
+    public Transform initialPoseFrame;
 
     void Start()
-    {	
-    	Debug.Log("Starting ROS publisher setup...");
-    	ros = ROSConnection.GetOrCreateInstance();
-    	ros.RegisterPublisher<PoseStampedMsg>(topicName);
+    {
+        ros = ROSConnection.GetOrCreateInstance();
+        ros.RegisterPublisher<PoseStampedMsg>(goalTopic);
+        ros.RegisterPublisher<PoseWithCovarianceStampedMsg>(initPoseTopic);
 
-    	Invoke(nameof(PublishNavigationGoal), 3.0f); // Delay 3s to wait for ROS
+        // Send initial pose estimate
+        PublishInitialPose();
+
+        // Wait a few seconds before sending the goal
+        Invoke(nameof(PublishNavigationGoal), 3f);
     }
 
-    public void PublishNavigationGoal()
+    void PublishInitialPose()
     {
-        if (mapFrame == null || goalFrame == null)
+        if (initialPoseFrame == null)
         {
-            Debug.LogWarning("Map and goal frames not set");
+            Debug.LogWarning("Initial pose frame not set");
             return;
         }
-        Debug.Log("Publishing goal to ROS...");
-        Debug.Log($"Publishing goal to {topicName} at: {goalFrame.position}");
 
-        PoseStampedMsg goalMsg = new PoseStampedMsg();
-
-        goalMsg.header.frame_id = "map";
-        goalMsg.header.stamp = new TimeMsg
+        var initPose = new PoseWithCovarianceStampedMsg
         {
-            sec = (int)System.DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-            nanosec = (uint)((System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() % 1000) * 1000000)
+            header = new HeaderMsg
+            {
+                frame_id = "map",
+                stamp = new TimeMsg { sec = 0, nanosec = 0 }
+            },
+            pose = new PoseWithCovarianceMsg
+            {
+                pose = new PoseMsg
+                {
+                    position = new PointMsg(
+                        initialPoseFrame.position.x,
+                        initialPoseFrame.position.y,
+                        initialPoseFrame.position.z
+                    ),
+                    orientation = new QuaternionMsg(
+                        initialPoseFrame.rotation.x,
+                        initialPoseFrame.rotation.y,
+                        initialPoseFrame.rotation.z,
+                        initialPoseFrame.rotation.w
+                    )
+                },
+                // Minimal covariance to make AMCL happy
+                covariance = new double[36] { 
+                    0.25, 0, 0, 0, 0, 0,
+                    0, 0.25, 0, 0, 0, 0,
+                    0, 0, 0.0, 0, 0, 0,
+                    0, 0, 0, 0.0, 0, 0,
+                    0, 0, 0, 0, 0.0, 0,
+                    0, 0, 0, 0, 0, 0.06853891945200942
+                }
+            }
         };
 
-        goalMsg.pose = new PoseMsg
+        ros.Publish(initPoseTopic, initPose);
+        Debug.Log($"Published initial pose to {initPoseTopic}");
+    }
+
+    void PublishNavigationGoal()
+    {
+        if (goalFrame == null)
         {
-            position = new PointMsg(goalFrame.position.x, goalFrame.position.y, goalFrame.position.z),
-            orientation = new QuaternionMsg(goalFrame.rotation.x, goalFrame.rotation.y, goalFrame.rotation.z, goalFrame.rotation.w)
+            Debug.LogWarning("Goal frame not set");
+            return;
+        }
+
+        var goalMsg = new PoseStampedMsg
+        {
+            header = new HeaderMsg
+            {
+                frame_id = "map",
+                stamp = new TimeMsg { sec = 0, nanosec = 0 }
+            },
+            pose = new PoseMsg
+            {
+                position = new PointMsg(
+                    goalFrame.position.x,
+                    goalFrame.position.y,
+                    goalFrame.position.z
+                ),
+                orientation = new QuaternionMsg(
+                    goalFrame.rotation.x,
+                    goalFrame.rotation.y,
+                    goalFrame.rotation.z,
+                    goalFrame.rotation.w
+                )
+            }
         };
 
-        ros.Publish(topicName, goalMsg);
+        ros.Publish(goalTopic, goalMsg);
+        Debug.Log($"Published navigation goal to {goalTopic}");
     }
 }
