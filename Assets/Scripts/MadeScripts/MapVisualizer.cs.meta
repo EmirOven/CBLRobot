@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 66651e82d3aff4846b5189dbd370b9ce
+guid: 6a441aec0240f087abd7d92d91da4ac8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - spherePrefab: {fileID: 5435706483994221065, guid: ed0f25759b5abf0418f4f9b9ca5b4132, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
