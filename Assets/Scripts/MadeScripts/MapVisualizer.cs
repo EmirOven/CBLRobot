@@ -16,6 +16,7 @@ public class MapVisualizer : MonoBehaviour
     {
         ros = ROSConnection.GetOrCreateInstance();
         ros.Subscribe<OccupancyGridMsg>("/map", RenderMap);
+        Debug.Log("Running map");
     }
 
     void RenderMap(OccupancyGridMsg map)
