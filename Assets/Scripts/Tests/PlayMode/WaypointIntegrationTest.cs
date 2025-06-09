@@ -145,7 +145,7 @@ namespace IntegrationTests
                 var timeout = distance / k_MinimumSpeedExpected;
                 
                 
-                ros.Send(k_GoalPoseTopic, ToRosMsg(waypointTf));
+                ros.Publish(k_GoalPoseTopic, ToRosMsg(waypointTf));
 
                 yield return new WaitUntil(() => 
                     IsCloseEnough(waypointTf, robotTf) ||
