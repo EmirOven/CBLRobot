@@ -21,12 +21,9 @@ public class MoveBaseGoalPublisherE : MonoBehaviour
 
         // Send initial pose estimate
         PublishInitialPose();
-
-        // Wait a few seconds before sending the goal
-        Invoke(nameof(PublishNavigationGoal), 3f);
     }
 
-    void PublishInitialPose()
+    public void PublishInitialPose()
     {
         if (initialPoseFrame == null)
         {
@@ -73,7 +70,7 @@ public class MoveBaseGoalPublisherE : MonoBehaviour
         Debug.Log($"Published initial pose to {initPoseTopic}");
     }
 
-    void PublishNavigationGoal()
+    public void PublishNavigationGoal()
     {
         if (goalFrame == null)
         {
