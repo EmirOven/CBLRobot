@@ -7,7 +7,7 @@ public class MapVisualizer : MonoBehaviour
 {
     public GameObject mapCellPrefab;
     public Transform mapOrigin;
-    public float cellSize = 0.05f;
+    public float cellSize = 0.2f;
 
     private ROSConnection ros;
     private Dictionary<Vector2Int, GameObject> cellObjects = new Dictionary<Vector2Int, GameObject>();
