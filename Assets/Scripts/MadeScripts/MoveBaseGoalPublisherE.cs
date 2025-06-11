@@ -89,8 +89,8 @@ public class MoveBaseGoalPublisherE : MonoBehaviour
             {
                 position = new PointMsg(
                     goalFrame.position.x,
-                    goalFrame.position.y,
-                    goalFrame.position.z
+                    goalFrame.position.z,
+                    goalFrame.position.y
                 ),
                 orientation = new QuaternionMsg(
                     goalFrame.rotation.x,
