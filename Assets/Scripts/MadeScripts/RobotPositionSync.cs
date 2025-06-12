@@ -1,40 +1,86 @@
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
-using RosMessageTypes.Tf2; // For OdometryMsg
+using RosMessageTypes.Tf2; // TFMessageMsg
 
+/// <summary>
+/// Subscribes to a TFMessage on /tf, takes the first TransformStamped, 
+/// and applies its translation & rotation to a Unity GameObject.
+/// </summary>
 public class RobotPositionSync : MonoBehaviour
 {
-    public Transform virtualRobot; // Reference to the virtual robot's transform
-    public string odomTopic = "/tf"; // ROS topic for odometry data
+    [Tooltip("Drag your virtual robot (or its parent) here")]
+    public Transform virtualRobot;
 
-    private ROSConnection ros;
+    [Tooltip("ROS topic where tf frames are broadcast (usually /tf)")]
+    public string tfTopic = "/tf";
+
+    ROSConnection ros;
 
     void Start()
     {
-        // Initialize ROS connection
+        // 1) Get or create the singleton ROSConnection
         ros = ROSConnection.GetOrCreateInstance();
-        ros.Subscribe<TFMessageMsg>(odomTopic, UpdateRobotPosition);
+
+        // 2) Subscribe to TFMessageMsg → callback UpdateRobotPosition
+        //    API ref: https://github.com/Unity-Technologies/Unity-Robotics-ROSTCP-Connector#subscribe
+        ros.Subscribe<TFMessageMsg>(tfTopic, UpdateRobotPosition);
     }
 
-    void UpdateRobotPosition(TFMessageMsg odomMsg)
+    void UpdateRobotPosition(TFMessageMsg msg)
     {
-        // Update the virtual robot's position
-        Vector3 newPosition = new Vector3(
-            (float)odomMsg.transforms.transform.translation.x,
-            0, // Assuming the robot moves on a flat plane
-            (float)odomMsg.transforms.transform.translation.y
-        );
-        virtualRobot.position = newPosition;
+        // TFMessageMsg.transforms is an array of TransformStampedMsg:
+        // https://github.com/Unity-Technologies/Unity-Robotics-ROSTCP-Connector/blob/main/com.unity.robotics/Runtime/MessageDefinitions/Tf2/TFMessageMsg.cs
+        if (msg.transforms == null || msg.transforms.Length == 0)
+        {
+            // Nothing to do if no transforms in this message
+            return;
+        }
 
-        // Update the virtual robot's rotation
-        Quaternion newRotation = new Quaternion(
-            (float)odomMsg.transforms.transform.rotation.x,
-            -(float)odomMsg.transforms.transform.rotation.z, // Swap Y and Z for Unity's coordinate system
-            -(float)odomMsg.transforms.transform.rotation.y,
-            (float)odomMsg.transforms.transform.rotation.w
+        // Take the first stamped transform
+        var stamped = msg.transforms[0];
+        var t = stamped.transform;
+
+        // --- Position ---
+        // ROS uses X-forward, Y-left, Z-up.
+        // Unity uses X-right, Y-up, Z-forward.
+        // If your robot moves on a flat floor, you may ignore the ROS Z.
+        Vector3 rosPos = new Vector3(
+            (float)t.translation.x,
+            (float)t.translation.y,
+            (float)t.translation.z
         );
 
-        Quaternion correction = Quaternion.Euler(0, 90, 0);
-        virtualRobot.rotation = correction * newRotation;
+        // Map ROS→Unity:
+        Vector3 unityPos = new Vector3(
+            rosPos.x,     // ROS X → Unity X
+            rosPos.z,     // ROS Z → Unity Y (up)
+            rosPos.y      // ROS Y → Unity Z (forward)
+        );
+        virtualRobot.localPosition = unityPos;
+
+        // --- Rotation ---
+        // ROS quaternion: (x, y, z, w)
+        // we need to remap axes similarly.
+        Quaternion rosQuat = new Quaternion(
+            (float)t.rotation.x,
+            (float)t.rotation.y,
+            (float)t.rotation.z,
+            (float)t.rotation.w
+        );
+
+        // Convert ROS→Unity quaternion by swapping/negating axes:
+        // (see TF orientation conventions + Unity left-handed system)
+        Quaternion unityQuat = new Quaternion(
+            rosQuat.x,
+            rosQuat.z,
+            -rosQuat.y,
+            rosQuat.w
+        );
+
+        // Optional correction if your robot's base frame is rotated
+        // relative to Unity’s forward:
+        Quaternion correction = Quaternion.Euler(0f, 90f, 0f);
+
+        virtualRobot.localRotation = correction * unityQuat;
     }
 }
