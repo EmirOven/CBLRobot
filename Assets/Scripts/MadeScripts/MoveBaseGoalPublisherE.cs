@@ -20,7 +20,7 @@ public class MoveBaseGoalPublisherE : MonoBehaviour
         ros.RegisterPublisher<PoseWithCovarianceStampedMsg>(initPoseTopic);
 
         // Send initial pose estimate
-        PublishInitialPose();
+        //PublishInitialPose();
     }
 
     public void PublishInitialPose()

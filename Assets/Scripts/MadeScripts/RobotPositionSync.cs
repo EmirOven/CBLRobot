@@ -1,11 +1,11 @@
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
-using RosMessageTypes.Nav; // For OdometryMsg
+using RosMessageTypes.Tf2; // For OdometryMsg
 
 public class RobotPositionSync : MonoBehaviour
 {
     public Transform virtualRobot; // Reference to the virtual robot's transform
-    public string odomTopic = "/odom"; // ROS topic for odometry data
+    public string odomTopic = "/tf"; // ROS topic for odometry data
 
     private ROSConnection ros;
 
@@ -13,25 +13,25 @@ public class RobotPositionSync : MonoBehaviour
     {
         // Initialize ROS connection
         ros = ROSConnection.GetOrCreateInstance();
-        ros.Subscribe<OdometryMsg>(odomTopic, UpdateRobotPosition);
+        ros.Subscribe<TFMessageMsg>(odomTopic, UpdateRobotPosition);
     }
 
-    void UpdateRobotPosition(OdometryMsg odomMsg)
+    void UpdateRobotPosition(TFMessageMsg odomMsg)
     {
         // Update the virtual robot's position
         Vector3 newPosition = new Vector3(
-            (float)odomMsg.pose.pose.position.x,
+            (float)odomMsg.transforms.transform.translation.x,
             0, // Assuming the robot moves on a flat plane
-            (float)odomMsg.pose.pose.position.y
+            (float)odomMsg.transforms.transform.translation.y
         );
         virtualRobot.position = newPosition;
 
         // Update the virtual robot's rotation
         Quaternion newRotation = new Quaternion(
-            (float)odomMsg.pose.pose.orientation.x,
-            -(float)odomMsg.pose.pose.orientation.z, // Swap Y and Z for Unity's coordinate system
-            -(float)odomMsg.pose.pose.orientation.y,
-            (float)odomMsg.pose.pose.orientation.w
+            (float)odomMsg.transforms.transform.rotation.x,
+            -(float)odomMsg.transforms.transform.rotation.z, // Swap Y and Z for Unity's coordinate system
+            -(float)odomMsg.transforms.transform.rotation.y,
+            (float)odomMsg.transforms.transform.rotation.w
         );
 
         Quaternion correction = Quaternion.Euler(0, 90, 0);
