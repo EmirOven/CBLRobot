@@ -1,46 +1,30 @@
 using UnityEngine;
-using RosMessageTypes.Std;
 using Unity.Robotics.ROSTCPConnector;
-using Unity.Robotics.ROSTCPConnector.ROSGeometry;
+using RosMessageTypes.Std;
 
 public class PatrolOverride : MonoBehaviour
 {
-    ROSConnection ros;
-    public string overrideTopic = "/unity_override";
-    public bool overrideActive = false;
+    private ROSConnection ros;
+    public string topicName = "/unity_override";
 
     void Start()
     {
         ros = ROSConnection.GetOrCreateInstance();
-        ros.RegisterPublisher<BoolMsg>(overrideTopic);
+        ros.RegisterPublisher<BoolMsg>(topicName);
     }
 
-    void Update()
+    public void PausePatrol()
     {
-        // For testing: press 'O' to toggle override
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            overrideActive = !overrideActive;
-            PublishOverride(overrideActive);
-        }
+        // Publish True to stop patrol (Unity is taking over)
+        ros.Publish(topicName, new BoolMsg(true));
+        Debug.Log("Patrol paused (override = true)");
     }
 
-    public void TriggerOverride()
+    public void ResumePatrol()
     {
-        overrideActive = true;
-        PublishOverride(true);
-    }
-
-    public void ClearOverride()
-    {
-        overrideActive = false;
-        PublishOverride(false);
-    }
-
-    void PublishOverride(bool state)
-    {
-        BoolMsg msg = new BoolMsg(state);
-        ros.Publish(overrideTopic, msg);
-        Debug.Log("Published override: " + state);
+        // Publish False to resume patrol
+        ros.Publish(topicName, new BoolMsg(false));
+        Debug.Log("Patrol resumed (override = false)");
     }
 }
+
